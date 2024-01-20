@@ -110,10 +110,9 @@ const SearchCopy = ({ navigation }) => {
         id: selectedQueryId,
         mob: selectedQueryMobileno,
       });
+    } else {
+      navigation.navigate("ResultsScreen", { id: selectedQueryId });
     }
-    //  else {
-    //   navigation.navigate("ResultsScreen", { id: selectedQueryId });
-    // }
   };
 
   const handlePartialQueryInput = async (partialInput) => {
