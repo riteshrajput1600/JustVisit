@@ -108,7 +108,7 @@ const SearchCopy = ({ navigation }) => {
     if (selectedQueryType === "product") {
       navigation.navigate("DetailedScreen", {
         id: selectedQueryId,
-        mob: selectedQueryMobileno,
+        // mob: selectedQueryMobileno,
       });
     } else {
       navigation.navigate("ResultsScreen", { id: selectedQueryId });
