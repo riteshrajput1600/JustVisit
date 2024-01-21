@@ -273,15 +273,6 @@
 
 // // export default ResultsScreen;
 
-
-
-
-
-
-
-
-
-
 // // ResultsScreen.js
 
 // import React, { useState, useEffect, useCallback } from "react";
@@ -497,7 +488,7 @@
 //           </View>
 //         </View>
 //       </TouchableOpacity>
-      
+
 //     ),
 //     [navigation, openEnquiryModal]
 //   );
@@ -577,13 +568,7 @@
 //     },
 // });
 
-
-
 // export default ResultsScreen;
-
-
-
-
 
 import { DATABASE_URL } from "@env";
 
@@ -613,20 +598,18 @@ const ITEM_HEIGHT = 25;
 
 const ResultsScreen = ({ route, navigation }) => {
   const { id } = route.params;
+  console.log("result screen ", id);
   const [listingData, setListingData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
   const [isFetchingMore, setIsFetchingMore] = useState(false);
   const [showEnquiryModal, setShowEnquiryModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  
 
   useEffect(() => {
     const fetchListingData = async () => {
       try {
-        const response = await fetch(
-          `${DATABASE_URL}/api/result/${id}`
-        );
+        const response = await fetch(`${DATABASE_URL}/api/result/${id}`);
         const data = await response.json();
         setListingData(data);
       } catch (error) {
@@ -675,7 +658,7 @@ const ResultsScreen = ({ route, navigation }) => {
 
   const openEnquiryModal = useCallback(
     (item) => {
-      console.log(item.id,"Opening Enquiry Modal");
+      console.log(item.id, "Opening Enquiry Modal");
       if (!selectedItem) {
         setSelectedItem(item);
       } else {
@@ -690,7 +673,6 @@ const ResultsScreen = ({ route, navigation }) => {
     setSelectedItem(null);
   }, []);
 
-
   const renderItem = useCallback(
     ({ item }) => (
       <TouchableOpacity
@@ -701,7 +683,10 @@ const ResultsScreen = ({ route, navigation }) => {
             id: item.id,
             mob: item.mobileno,
           });
-          console.log("this is id from details page going to detailed page",item.id);
+          console.log(
+            "this is id from details page going to detailed page",
+            item.id
+          );
         }}
       >
         <View style={styles.cardContainer}>
