@@ -11,6 +11,7 @@ const { sequelize } = require('./models/registerModel');
 const subcategoryRoutes = require('./routes/subcategoryRoutes');
 const searchRoutes = require('./routes/searchRoutes');
 const enquiryRoutes = require('./routes/enquiryRoutes');
+const resultRoutes = require('./routes/ResultRoutes')
 const os = require('os');
 
 const app = express();
@@ -27,6 +28,7 @@ app.use('/api', categoryRoutes);
 app.use('/api', loginRoutes);
 app.use('/api', addListingRoutes);
 app.use('/api', listingRoutes);
+app.use('/api', resultRoutes);
 app.use('/api', detailRoutes);
 app.use('/api', registerRoutes);
 app.use('/api', galleryRoutes);

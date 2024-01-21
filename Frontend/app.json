@@ -4,13 +4,9 @@
     "slug": "JustVisit",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "https://www.justvisitonline.com/assets/img/apple-touch-icon-120x120-precomposed.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
+    
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -19,12 +15,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "https://www.justvisitonline.com/assets/img/apple-touch-icon-120x120-precomposed.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "https://www.justvisitonline.com/assets/img/apple-touch-icon-120x120-precomposed.png"
     }
   }
 }

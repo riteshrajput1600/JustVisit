@@ -625,7 +625,7 @@ const ResultsScreen = ({ route, navigation }) => {
     const fetchListingData = async () => {
       try {
         const response = await fetch(
-          `${DATABASE_URL}/api/listing/${id}`
+          `${DATABASE_URL}/api/result/${id}`
         );
         const data = await response.json();
         setListingData(data);

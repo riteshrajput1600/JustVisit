@@ -110,6 +110,8 @@ const SearchCopy = ({ navigation }) => {
         id: selectedQueryId,
         mob: selectedQueryMobileno,
       });
+    } else if (selectedQueryType === "category") {
+      navigation.navigate("DetailsScreen", { id: selectedQueryId });
     } else {
       navigation.navigate("ResultsScreen", { id: selectedQueryId });
     }

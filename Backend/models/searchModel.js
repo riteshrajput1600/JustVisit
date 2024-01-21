@@ -77,6 +77,54 @@ const getCitySuggestions = (partialInput, callback) => {
 
 // In searchModel.js
 
+// const getQuerySuggestions = (city, partialInput, callback) => {
+//   const sql = `
+//     SELECT DISTINCT listing.id, cname, mobileno, 'product' as type FROM listing INNER JOIN city ON listing.city = city.id
+//     WHERE city.city LIKE ? AND cname LIKE ?
+//     LIMIT 5
+//   `;
+
+//   const params = [`%${city}%`, `%${partialInput}%`];
+
+//   connection.query(sql, params, (err, productResults) => {
+//     if (err) {
+//       console.error("Error executing MySQL query for product suggestions:", err);
+//       callback(err, null);
+//     } else {
+//       const productSuggestions = productResults.map((result) => ({
+//         id: result.id,
+//         cname: result.cname,
+//         mobileno: result.mobileno,
+//         type: result.type,
+//       }));
+
+//       const categorySql = `
+//         SELECT DISTINCT category.id, category.category as cname, '' as mobileno, 'category' as type FROM category
+//         WHERE category.category LIKE ?
+//         LIMIT 5
+//       `;
+
+//       connection.query(categorySql, [`%${partialInput}%`], (err, categoryResults) => {
+//         if (err) {
+//           console.error("Error executing MySQL query for category suggestions:", err);
+//           callback(err, null);
+//         } else {
+//           const categorySuggestions = categoryResults.map((result) => ({
+//             id: result.id,
+//             cname: result.cname,
+//             mobileno: result.mobileno,
+//             type: result.type,
+//           }));
+
+//           const suggestions = [...productSuggestions, ...categorySuggestions];
+//           callback(null, suggestions);
+//         }
+//       });
+//     }
+//   });
+// };
+
+
 const getQuerySuggestions = (city, partialInput, callback) => {
   const sql = `
     SELECT DISTINCT listing.id, cname, mobileno, 'product' as type FROM listing INNER JOIN city ON listing.city = city.id
@@ -116,13 +164,35 @@ const getQuerySuggestions = (city, partialInput, callback) => {
             type: result.type,
           }));
 
-          const suggestions = [...productSuggestions, ...categorySuggestions];
-          callback(null, suggestions);
+          const subcategorySql = `
+            SELECT DISTINCT subcategory.id, subcategory.subcategory as cname, '' as mobileno, 'subcategory' as type FROM subcategory
+            INNER JOIN category ON subcategory.cid = category.id
+            WHERE subcategory.subcategory LIKE ? or category.category LIKE ?
+            LIMIT 5
+          `;
+
+          connection.query(subcategorySql, [`%${partialInput}%`, `%${partialInput}%`], (err, subcategoryResults) => {
+            if (err) {
+              console.error("Error executing MySQL query for subcategory suggestions:", err);
+              callback(err, null);
+            } else {
+              const subcategorySuggestions = subcategoryResults.map((result) => ({
+                id: result.id,
+                cname: result.cname,
+                mobileno: result.mobileno,
+                type: result.type,
+              }));
+
+              const suggestions = [...productSuggestions, ...categorySuggestions, ...subcategorySuggestions];
+              callback(null, suggestions);
+            }
+          });
         }
       });
     }
   });
 };
+
 
 
 module.exports = {
